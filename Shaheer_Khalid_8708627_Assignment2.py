@@ -15,6 +15,17 @@ print("WHAT COLOUR WOULD YOU LIKE TO PICK TODAY?")
 colourofshirt = str(input())
 #Using if statement to assign my variable a colour which could also be printed later
 #keeping in mind that the user can enter small or Capital letter
+
+#Validation check
+for i in range(len(colourofshirt)):
+    if (colourofshirt[i].isdigit() != True):
+        print ("PLEASE ENTER A VALID KEY")
+        colourofshirt = str(input())
+    elif (colourofshirt[i].isdigit() == True):
+        colourofshirt = str(input())
+    else:
+        colourofshirt = str(input())
+
 if (colourofshirt == "W") or (colourofshirt == "w"):
     colourofshirt = "WHITE"
 elif (colourofshirt == "B") or (colourofshirt == "b"):
@@ -24,6 +35,7 @@ elif (colourofshirt == "O") or (colourofshirt == "o"):
 elif (colourofshirt == "R") or (colourofshirt == "r"):
     colourofshirt = "RED"
 
+   
 #Get type of shirt (polo or t-shirt )
 print("---------------------------------------------------------------------------")
 print("WE OFFER TWO OPTIONS FOR OUR T-SHIRTS:")
@@ -43,7 +55,7 @@ print("HOW MANY SHIRTS WOULD YOU LIKE TO PURCHASE TODAY?")
 shirtqty = int(input())
 
 
-#Get Colour of shirt (I'll ask for 4 different colours)
+#Get Colour of pants (I'll ask for 4 different colours)
 print("---------------------------------------------------------------------------")
 print("THIS OUR CATALOG OF PANTS TO CHOOSE FROM WITH A PRICE OF $19.99")
 print("Please enter 'G' for GREY")
@@ -63,12 +75,18 @@ elif (colourofpants == "O") or (colourofpants == "o"):
 elif (colourofpants == "R") or (colourofpants == "r"):
     colourofpants = "RED"
 
-#Get type of shirt (polo or t-shirt )
+#Get type of shirt (polo or t-shirt)
 print("---------------------------------------------------------------------------")
 print("WE OFFER TWO OPTIONS FOR OUR PANTS:")
 print("1.SWEATPANTS        2.TRACKPANTS")
 print("Please enter 1 for 'SWEATPANTS' OR enter 2 for 'TRACKPANTS'")
 panttype = int(input())
+#Validation check  
+if ((panttype != 1) or (panttype != 2)):
+    print ("PLEASE ENTER A VALID KEY")
+    panttype = int(input())
+else:
+    panttype = int(input())
 
 #As required, user will make their choice by entering either 1 or 2 (integer)
 if (panttype == 1):
@@ -76,18 +94,54 @@ if (panttype == 1):
 elif (panttype == 2):
     panttype = "TRACKPANTS"
 
-#Get quantity of shirt
+#Get quantity of pants
 print("---------------------------------------------------------------------------")
 print("HOW MANY PANTS WOULD YOU LIKE TO PURCHASE TODAY?")
 pantqty = int(input())
 
+totalqty = (shirtqty + pantqty)
 #Declare cost of shirt (CONSTANT)
 SHIRTCOST = 9.99
-SWEATCOST = 19.99
+PANTSCOST = 19.99
 #Calculate the total cost before and after HST13%
-tax = (shirtqty * (SHIRTCOST+ SWEATCOST)) * 0.13
-totalcostbeftax = (SHIRTCOST+ SWEATCOST) * shirtqty
-totalcostafttax = (shirtqty * (SHIRTCOST+ SWEATCOST) + tax)
+tax = (totalqty * (SHIRTCOST + PANTSCOST)) * 0.13
+totalcostbeftax = (SHIRTCOST + PANTSCOST) * shirtqty
+totalcostafttax = (totalqty * (SHIRTCOST + PANTSCOST) + tax)
+
+#Discounts
+studentdiscounts = 0
+print("ARE YOU A STUDENT ? [Y or N]")
+studentdisc = str(input())
+
+if (studentdisc == "Y") or (studentdisc == "y"):
+    studentdiscounts = (totalcostafttax * 0.10)
+totalcostafterdisc = (totalcostbeftax - (studentdisc))
+
+seniordiscounts = 0
+print("DO YOU IDENTIFY AS A SENIOR CITIZEN ? [Y or N]")
+seniordisc = str(input())
+
+if (seniordisc == "Y") or (seniordisc == "y"):
+    seniordiscounts = (totalcostbeftax * 0.10)
+totalcostafterdisc = (totalcostbeftax - (seniordisc))
+
+qtydiscounts = 0
+if studentdisc > 0:
+    seniordisc == 0.00
+elif seniordisc > 0:
+    studentdisc == 0.00
+elif (shirtqty >= 3) or (seniordisc >= 3):
+    qtydiscounts = ((totalcostafterdisc * 0.15))
+elif (shirtqty <= 3) or (pantqty <= 3):
+    qtydiscounts = ((totalcostbeftax + 0))
+elif (shirtqty >= 3) and (seniordisc <=3):
+    qtydiscounts = ((shirtqty * SHIRTCOST)*0.15)
+elif (shirtqty <= 3) and (seniordisc >=3):
+    qtydiscounts = ((shirtqty * PANTSCOST)*0.15) 
+
+totalcostafterdisctax = totalcostafttax + qtydiscounts
+
+
 
 #Print receipt/Summary of the order
 print("")
@@ -95,11 +149,19 @@ print("----------------------------RECIEPT-----------------------------")
 print("----------------------ABBY'S MURCHANDIZING----------------------")
 print("")
 print("COLOUR OF SHIRT       "+ colourofshirt)
+print("COLOUR OF PANT       "+ colourofpants)
 
-print("CHOICE OF SHIRT       "+ choice)
-print("QTY                  ", shirtqty)
+print("CHOICE OF SHIRT       "+ shirttype)
+print("CHOICE OF PANTS       "+ panttype)
+print("QTY OF SHIRTS        ", shirtqty)
+print("QTY OF PANTS         ", pantqty)
+print("SENIOR DISC          " +seniordiscounts)
+print("STUDENT DISC         " +studentdiscounts)
+
 print("                      -----------------")
 print("SUB-TOTAL             $", format(totalcostbeftax,".2f"))
 print("HST 13%               $", format(tax,".2f"))
 print("TOTAL COST            $", format(totalcostafttax,".2f"))
+print("TOTAL COST WITH DISC  $", format(totalcostafterdisctax,".2f"))
+
 
