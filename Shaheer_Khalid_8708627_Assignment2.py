@@ -83,7 +83,7 @@ print("Please enter 1 for 'SWEATPANTS' OR enter 2 for 'TRACKPANTS'")
 panttype = int(input())
 #Validation check  
 if ((panttype != 1) or (panttype != 2)):
-    print ("PLEASE ENTER A VALID KEY")
+    print ("IS THAT YOUR FINAL OPTION ?")
     panttype = int(input())
 else:
     panttype = int(input())
@@ -99,47 +99,50 @@ print("-------------------------------------------------------------------------
 print("HOW MANY PANTS WOULD YOU LIKE TO PURCHASE TODAY?")
 pantqty = int(input())
 
+#Get total quantity
 totalqty = (shirtqty + pantqty)
-#Declare cost of shirt (CONSTANT)
+#Declare cost of shirt and pants (CONSTANT)
 SHIRTCOST = 9.99
 PANTSCOST = 19.99
+total = (SHIRTCOST + PANTSCOST)
+totalofcost = (total * totalqty)
 #Calculate the total cost before and after HST13%
-tax = (totalqty * (SHIRTCOST + PANTSCOST)) * 0.13
-totalcostbeftax = (SHIRTCOST + PANTSCOST) * shirtqty
-totalcostafttax = (totalqty * (SHIRTCOST + PANTSCOST) + tax)
+tax = ((totalqty * total) * 0.13)
+totalcostbeftax = ((total) * totalqty)
+totalcostafttax = (totalqty * (total) + tax)
 
 #Discounts
 studentdiscounts = 0
 print("ARE YOU A STUDENT ? [Y or N]")
 studentdisc = str(input())
-
+#student discount
 if (studentdisc == "Y") or (studentdisc == "y"):
-    studentdiscounts = (totalcostafttax * 0.10)
-totalcostafterdisc = (totalcostbeftax - (studentdisc))
-
+    studentdiscounts = (totalcostbeftax * 0.10)
+totalcostafterdisc = (totalcostbeftax - (studentdiscounts))
+#senior discount
 seniordiscounts = 0
 print("DO YOU IDENTIFY AS A SENIOR CITIZEN ? [Y or N]")
 seniordisc = str(input())
 
 if (seniordisc == "Y") or (seniordisc == "y"):
     seniordiscounts = (totalcostbeftax * 0.10)
-totalcostafterdisc = (totalcostbeftax - (seniordisc))
-
+totalcostafterdisc = (totalcostbeftax - (seniordiscounts))
+#quantity discount
 qtydiscounts = 0
-if studentdisc > 0:
-    seniordisc == 0.00
-elif seniordisc > 0:
-    studentdisc == 0.00
-elif (shirtqty >= 3) or (seniordisc >= 3):
+if studentdiscounts > 0:
+    seniordiscounts == 0.00
+elif seniordiscounts > 0:
+    studentdiscounts == 0.00
+elif (shirtqty >= 3) or (seniordiscounts >= 3):
     qtydiscounts = ((totalcostafterdisc * 0.15))
 elif (shirtqty <= 3) or (pantqty <= 3):
-    qtydiscounts = ((totalcostbeftax + 0))
+    qtydiscounts = ((totalcostafterdisc + 0))
 elif (shirtqty >= 3) and (seniordisc <=3):
     qtydiscounts = ((shirtqty * SHIRTCOST)*0.15)
 elif (shirtqty <= 3) and (seniordisc >=3):
     qtydiscounts = ((shirtqty * PANTSCOST)*0.15) 
 
-totalcostafterdisctax = totalcostafttax + qtydiscounts
+totalcostafterdisctax = (totalcostafttax - qtydiscounts) - (totalcostafterdisc)
 
 
 
@@ -149,19 +152,21 @@ print("----------------------------RECIEPT-----------------------------")
 print("----------------------ABBY'S MURCHANDIZING----------------------")
 print("")
 print("COLOUR OF SHIRT       "+ colourofshirt)
-print("COLOUR OF PANT       "+ colourofpants)
+print("COLOUR OF PANT        "+ colourofpants)
 
 print("CHOICE OF SHIRT       "+ shirttype)
 print("CHOICE OF PANTS       "+ panttype)
 print("QTY OF SHIRTS        ", shirtqty)
 print("QTY OF PANTS         ", pantqty)
-print("SENIOR DISC          " +seniordiscounts)
-print("STUDENT DISC         " +studentdiscounts)
+print("SENIOR DISC            $", format(seniordiscounts,".2f"))
+print("QTY DISCOUNTS          $", format(qtydiscounts,".2f"))
+print("STUDENT DISC           $", format(studentdiscounts,".2f"))
 
 print("                      -----------------")
-print("SUB-TOTAL             $", format(totalcostbeftax,".2f"))
-print("HST 13%               $", format(tax,".2f"))
-print("TOTAL COST            $", format(totalcostafttax,".2f"))
-print("TOTAL COST WITH DISC  $", format(totalcostafterdisctax,".2f"))
+print("SUB-TOTAL              $", format(totalcostbeftax,".2f"))
+print("HST 13%                $", format(tax,".2f"))
+print("TOTAL COST             $", format(totalcostafttax,".2f"))
+print("TOTAL DISCOUNT APPLIED $", format(totalcostafterdisc,".2f"))
+print("TOTAL COST WITH DISC   $", format(totalcostafterdisc,".2f"))
 
 
