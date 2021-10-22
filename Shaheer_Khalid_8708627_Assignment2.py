@@ -137,6 +137,8 @@ elif (shirtqty >= 3) or (seniordiscounts >= 3):
     qtydiscounts = ((totalcostafterdisc * 0.15))
 elif (shirtqty <= 3) or (pantqty <= 3):
     qtydiscounts = ((totalcostafterdisc + 0))
+elif (shirtqty >= 3) or (pantqty >= 3):
+    qtydiscounts = ((totalcostafterdisc) * 0.30)
 elif (shirtqty >= 3) and (seniordisc <=3):
     qtydiscounts = ((shirtqty * SHIRTCOST)*0.15)
 elif (shirtqty <= 3) and (seniordisc >=3):
@@ -151,13 +153,13 @@ print("")
 print("----------------------------RECIEPT-----------------------------")
 print("----------------------ABBY'S MURCHANDIZING----------------------")
 print("")
-print("COLOUR OF SHIRT       "+ colourofshirt)
-print("COLOUR OF PANT        "+ colourofpants)
+print("COLOUR OF SHIRT        "+ colourofshirt)
+print("COLOUR OF PANT         "+ colourofpants)
 
-print("CHOICE OF SHIRT       "+ shirttype)
-print("CHOICE OF PANTS       "+ panttype)
-print("QTY OF SHIRTS        ", shirtqty)
-print("QTY OF PANTS         ", pantqty)
+print("CHOICE OF SHIRT        "+ shirttype)
+print("CHOICE OF PANTS        "+ panttype)
+print("QTY OF SHIRTS         ", shirtqty)
+print("QTY OF PANTS          ", pantqty)
 print("SENIOR DISC            $", format(seniordiscounts,".2f"))
 print("QTY DISCOUNTS          $", format(qtydiscounts,".2f"))
 print("STUDENT DISC           $", format(studentdiscounts,".2f"))
@@ -166,7 +168,7 @@ print("                      -----------------")
 print("SUB-TOTAL              $", format(totalcostbeftax,".2f"))
 print("HST 13%                $", format(tax,".2f"))
 print("TOTAL COST             $", format(totalcostafttax,".2f"))
-print("TOTAL DISCOUNT APPLIED $", format(totalcostafterdisc,".2f"))
+print("TOTAL DISCOUNT APPLIED $", format(totalcostafterdisctax,".2f"))
 print("TOTAL COST WITH DISC   $", format(totalcostafterdisc,".2f"))
 
 
